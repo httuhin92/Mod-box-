@@ -358,46 +358,77 @@
             color: white;
         }
 
-        .events-container {
-            overflow-x: auto;
-            white-space: nowrap;
-            margin-bottom: 30px;
-        }   t
-        .events-apps-wrapper:hover .events-apps {
-            animation-play-state: paused;
-        }
+/* --- ইভেন্টস সেকশনের জন্য নতুন CSS --- */
+.events-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden; /* স্ক্রলবার লুকানোর জন্য */
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    background: #fff;
+}
 
-        .event-card {
-            display: inline-block;
-            width: 250px;
-            margin-right: 15px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            vertical-align: top;
-        }
+/* ইভেন্টস র্যাপার যা স্লাইড করবে */
+.events-wrapper {
+    display: flex;
+    transition: transform 0.5s ease-in-out; /* স্মুথ স্লাইডিং */
+}
 
-        .event-img {
-            width: 70%;
-            height: 160px;
-            object-fit: cover;
-        }
+.event-card {
+    min-width:100%; /* প্রতিটি কার্ড পুরো জায়গা নেবে */
+    box-sizing: border-box;
+    padding: 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* সুন্দর গ্রেডিয়েন্ট */
+    color: white;
+    border-radius: 10px;
+}
 
-        .event-content {
-           padding: 20px;
-        }
+.event-img {
+    width: 100%; /* ইমেজ বড় করা হয়েছে */
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    box-shadow: 0 8px 10px rgba(0,0,0,0.2);
+}
 
-        .event-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+.event-title {
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 15px;
+}
 
-        .event-link {
-            display: inline-block;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
+.event-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 10px 20px;
+    border-radius: 20px;
+    transition: background-color 0.3s;
+}
+
+.event-link:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* ক্যাটাগরি বাটনের জন্য সামান্য পরিবর্তন */
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+    justify-content: center; /* কেন্দ্রে সাজানোর জন্য */
+}
+
+.category-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
 
         /* Modified Popular Apps Section */
         .popular-apps-container {
@@ -682,13 +713,10 @@
             margin-bottom: 20px;
         }
 
-        .stat-card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
+.stat-card {
+    background-color: white; /* এটা সঠিক */
+    /* ... */
+}
 
         .stat-value {
             font-size: 24px;
@@ -1103,79 +1131,83 @@
     <!-- Overlay -->
     <div id="overlay" class="overlay"></div>
 
-    <!-- Main Content -->
-    <div class="container">
-        <!-- Home Page -->
-        <div id="homePage" class="page-content">
-    <!-- Search Bar -->
-    <div class="search-container">
-        <div class="search-input-wrapper">
-            <input type="text" id="searchInput" class="search-input" placeholder="Type app name to search...">
-            <i class="fas fa-search search-icon"></i>
+<!-- Main Content -->
+<div class="container">
+    <!-- Home Page -->
+    <div id="homePage" class="page-content">
+        <!-- Search Bar -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <input type="text" id="searchInput" class="search-input" placeholder="Type app name to search...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <div id="searchResults" class="search-results">
+                <!-- Search results will be displayed here -->
+            </div>
         </div>
-        <div id="searchResults" class="search-results">
-            <!-- Search results will be displayed here -->
+
+        <!-- ইভেন্টস সেকশনটি এখানে আনুন -->
+        <h2 class="section-title">Events</h2>
+        <div class="events-container" id="eventsContainer">
+            <!-- ইভেন্টগুলো এখানে লোড হবে -->
+        </div>
+
+        <!-- Popular Apps -->
+        <h2 class="section-title">Popular Apps</h2>
+        <div class="popular-apps-container">
+            <div class="popular-apps-wrapper">
+                <div class="popular-apps" id="popularApps">
+                    <!-- Popular apps will be loaded here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ক্যাটাগরি সেকশনটি এখানে আনুন -->
+        <div class="categories">
+            <button class="category-btn active" data-category="all">
+                <i class="fas fa-th"></i>
+                All Apps
+            </button>
+            <button class="category-btn" data-category="games">
+                <i class="fas fa-gamepad"></i>
+                Games 🎮
+            </button>
+            <button class="category-btn" data-category="education">
+                <i class="fas fa-graduation-cap"></i>
+                Education 📚
+            </button>
+            <button class="category-btn" data-category="social">
+                <i class="fas fa-users"></i>
+                Social Media
+            </button>
+            <button class="category-btn" data-category="photography">
+                <i class="fas fa-camera"></i>
+                Photography 📸
+            </button>
+            <button class="category-btn" data-category="productivity">
+                <i class="fas fa-briefcase"></i>
+                Productivity
+            </button>
+            <button class="category-btn" data-category="entertainment">
+                <i class="fas fa-film"></i>
+                Entertainment
+            </button>
+        </div>
+
+        <!-- Ad -->
+        <div class="ad-container">
+            <div class="ad-label">Advertisement</div>
+            <div id="ad1">
+                <!-- Ad will be loaded here -->
+            </div>
+        </div>
+
+        <!-- All Apps -->
+        <h2 class="section-title">All Apps</h2>
+        <div class="app-list" id="allApps">
+            <!-- All apps will be loaded here -->
         </div>
     </div>
-
-            <!-- Categories -->
-            <div class="categories">
-                <button class="category-btn" data-category="games">
-                    <i class="fas fa-gamepad"></i>
-                    Games 🎮
-                </button>
-                <button class="category-btn" data-category="education">
-                    <i class="fas fa-graduation-cap"></i>
-                    Education 📚
-                </button>
-                <button class="category-btn" data-category="social">
-                    <i class="fas fa-users"></i>
-                    Social Media
-                </button>
-                <button class="category-btn" data-category="photography">
-                    <i class="fas fa-camera"></i>
-                    Photography 📸
-                </button>
-                <button class="category-btn" data-category="productivity">
-                    <i class="fas fa-briefcase"></i>
-                    Productivity
-                </button>
-                <button class="category-btn" data-category="entertainment">
-                    <i class="fas fa-film"></i>
-                    Entertainment
-                </button>
-            </div>
-
-            <!-- Events -->
-            <h2 class="section-title">Events</h2>
-            <div class="events-container" id="eventsContainer">
-                <!-- Events will be loaded here -->
-            </div>
-
-            <!-- Popular Apps -->
-            <h2 class="section-title">Popular Apps</h2>
-            <div class="popular-apps-container">
-                <div class="popular-apps-wrapper">
-                    <div class="popular-apps" id="popularApps">
-                        <!-- Popular apps will be loaded here -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Ad -->
-            <div class="ad-container">
-                <div class="ad-label">Advertisement</div>
-                <div id="ad1">
-                    <!-- Ad will be loaded here -->
-                </div>
-            </div>
-
-            <!-- All Apps -->
-            <h2 class="section-title">All Apps</h2>
-            <div class="app-list" id="allApps">
-                <!-- All apps will be loaded here -->
-            </div>
-        </div>
 
         <!-- Request Page -->
         <div id="requestPage" class="page-content hidden">
@@ -1449,11 +1481,6 @@
                 </div>
             </div>
 
-            <div class="card">
-                <h3 class="section-title">Uploader's Other Apps</h3>
-                <div class="other-apps-grid" id="uploaderApps">
-                    <!-- Uploader's other apps will be loaded here -->
-                </div>
 
             <div class="card">
                 <h3 class="section-title">Description</h3>
@@ -1479,7 +1506,11 @@
                     </div>
                     <button id="submitReview" class="btn btn-primary">Submit Review</button>
                 </div>
-
+            <div class="card">
+                <h3 class="section-title">Uploader's Other Apps</h3>
+                <div class="other-apps-grid" id="uploaderApps">
+                    <!-- Uploader's other apps will be loaded here -->
+                </div>
                 </div>
                 <h3 class="section-title">Reviews</h3>
                 <div id="reviewsList">
@@ -1578,461 +1609,467 @@
     <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database-compat.js"></script>
 
     <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyBMPSZI0-BZlNTTQhGmOpKA1muxrPf7BRM",
-            authDomain: "app-store-a729c.firebaseapp.com",
-            databaseURL: "https://app-store-a729c-default-rtdb.firebaseio.com",
-            projectId: "app-store-a729c",
-            storageBucket: "app-store-a729c.firebasestorage.app",
-            messagingSenderId: "606979387712",
-            appId: "1:606979387712:web:475a29b8ab2418385e0aa5",
-            measurementId: "G-V9N6E0PSNG"
-        };
+// Firebase configuration
+const firebaseConfig = {
+    apiKey: "AIzaSyBMPSZI0-BZlNTTQhGmOpKA1muxrPf7BRM",
+    authDomain: "app-store-a729c.firebaseapp.com",
+    databaseURL: "https://app-store-a729c-default-rtdb.firebaseio.com",
+    projectId: "app-store-a729c",
+    storageBucket: "app-store-a729c.firebasestorage.app",
+    messagingSenderId: "606979387712",
+    appId: "1:606979387712:web:475a29b8ab2418385e0aa5",
+    measurementId: "G-V9N6E0PSNG"
+};
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const database = firebase.database();
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const database = firebase.database();
 
-        // Global variables
-        let allAppsData = [];
-        let searchTimeout;
-        let currentAppId = null;
-        let currentAppData = null;
+// Global variables
+let allAppsData = [];
+let searchTimeout;
+let currentAppId = null;
+let currentAppData = null;
 
-        // DOM Elements
-        const menuToggle = document.getElementById('menuToggle');
-        const sidebar = document.getElementById('sidebar');
-        const sidebarClose = document.getElementById('sidebarClose');
-        const overlay = document.getElementById('overlay');
-        const themeToggle = document.getElementById('themeToggle');
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const loginModal = document.getElementById('loginModal');
-        const loginModalClose = document.getElementById('loginModalClose');
-        const editProfileModal = document.getElementById('editProfileModal');
-        const editProfileModalClose = document.getElementById('editProfileModalClose');
-        const notification = document.getElementById('notification');
-        const searchInput = document.getElementById('searchInput');
-        const searchResults = document.getElementById('searchResults');
+// DOM Elements
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarClose = document.getElementById('sidebarClose');
+const overlay = document.getElementById('overlay');
+const themeToggle = document.getElementById('themeToggle');
+const loginBtn = document.getElementById('loginBtn');
+const logoutBtn = document.getElementById('logoutBtn');
+const loginModal = document.getElementById('loginModal');
+const loginModalClose = document.getElementById('loginModalClose');
+const editProfileModal = document.getElementById('editProfileModal');
+const editProfileModalClose = document.getElementById('editProfileModalClose');
+const notification = document.getElementById('notification');
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
 
-        // Page Elements
-        const homePage = document.getElementById('homePage');
-        const requestPage = document.getElementById('requestPage');
-        const appsPage = document.getElementById('appsPage');
-        const uploadPage = document.getElementById('uploadPage');
-        const profilePage = document.getElementById('profilePage');
-        const balancePage = document.getElementById('balancePage');
-        const settingsPage = document.getElementById('settingsPage');
-        const appDetailPage = document.getElementById('appDetailPage');
+// Page Elements
+const homePage = document.getElementById('homePage');
+const requestPage = document.getElementById('requestPage');
+const appsPage = document.getElementById('appsPage');
+const uploadPage = document.getElementById('uploadPage');
+const profilePage = document.getElementById('profilePage');
+const balancePage = document.getElementById('balancePage');
+const settingsPage = document.getElementById('settingsPage');
+const appDetailPage = document.getElementById('appDetailPage');
 
-        // Share buttons
-        const copyLinkBtn = document.getElementById('copyLinkBtn');
-        const whatsappBtn = document.getElementById('whatsappBtn');
-        const facebookBtn = document.getElementById('facebookBtn');
-        const twitterBtn = document.getElementById('twitterBtn');
-        const emailBtn = document.getElementById('emailBtn');
-        const shareCount = document.getElementById('shareCount');
+// Share buttons
+const copyLinkBtn = document.getElementById('copyLinkBtn');
+const whatsappBtn = document.getElementById('whatsappBtn');
+const facebookBtn = document.getElementById('facebookBtn');
+const twitterBtn = document.getElementById('twitterBtn');
+const emailBtn = document.getElementById('emailBtn');
+const shareCount = document.getElementById('shareCount');
 
-        // Event Listeners
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.add('active');
-            overlay.classList.add('active');
+// Event Listeners
+menuToggle.addEventListener('click', () => {
+    sidebar.classList.add('active');
+    overlay.classList.add('active');
+});
+
+sidebarClose.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+});
+
+overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+});
+
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-theme');
+    const icon = themeToggle.querySelector('i');
+    if (document.body.classList.contains('dark-theme')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+    }
+});
+
+loginBtn.addEventListener('click', () => {
+    loginModal.classList.add('active');
+});
+
+loginModalClose.addEventListener('click', () => {
+    loginModal.classList.remove('active');
+});
+
+editProfileModalClose.addEventListener('click', () => {
+    editProfileModal.classList.remove('active');
+});
+
+logoutBtn.addEventListener('click', () => {
+    auth.signOut().then(() => {
+        showNotification('Successfully logged out', 'success');
+        updateUIForLoggedOutUser();
+    }).catch((error) => {
+        showNotification('Failed to logout: ' + error.message, 'error');
+    });
+});
+
+// Search functionality
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.trim();
+    
+    // Clear previous timeout
+    clearTimeout(searchTimeout);
+    
+    if (searchTerm.length < 2) {
+        searchResults.classList.remove('active');
+        return;
+    }
+    
+    // Show loading
+    searchResults.innerHTML = '<div class="search-loading"><i class="fas fa-spinner fa-spin"></i> Searching...</div>';
+    searchResults.classList.add('active');
+    
+    // Debounce search
+    searchTimeout = setTimeout(() => {
+        performSearch(searchTerm);
+    }, 300);
+});
+
+// Close search results when clicking outside
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+        searchResults.classList.remove('active');
+    }
+});
+
+// Tab switching in login modal
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+        const tabName = tab.getAttribute('data-tab');
+        
+        // Update active tab
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        // Update active tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.remove('active');
         });
+        document.getElementById(`${tabName}Tab`).classList.add('active');
+    });
+});
 
-        sidebarClose.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        overlay.addEventListener('click', () => {
-            sidebar.classList.remove('active');
-            overlay.classList.remove('active');
-        });
-
-        themeToggle.addEventListener('click', () => {
-            document.body.classList.toggle('dark-theme');
-            const icon = themeToggle.querySelector('i');
-            if (document.body.classList.contains('dark-theme')) {
-                icon.classList.remove('fa-moon');
-                icon.classList.add('fa-sun');
-            } else {
-                icon.classList.remove('fa-sun');
-                icon.classList.add('fa-moon');
-            }
-        });
-
-        loginBtn.addEventListener('click', () => {
-            loginModal.classList.add('active');
-        });
-
-        loginModalClose.addEventListener('click', () => {
+// Login form submission
+document.getElementById('loginSubmit').addEventListener('click', () => {
+    const email = document.getElementById('loginEmail').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    if (!email || !password) {
+        showNotification('Please provide email and password', 'error');
+        return;
+    }
+    
+    auth.signInWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            showNotification('Successfully logged in', 'success');
             loginModal.classList.remove('active');
+            updateUIForLoggedInUser(user);
+        })
+        .catch((error) => {
+            showNotification('Login failed: ' + error.message, 'error');
         });
+});
 
-        editProfileModalClose.addEventListener('click', () => {
+// Signup form submission
+document.getElementById('signupSubmit').addEventListener('click', () => {
+    const name = document.getElementById('signupName').value;
+    const email = document.getElementById('signupEmail').value;
+    const password = document.getElementById('signupPassword').value;
+    
+    if (!name || !email || !password) {
+        showNotification('Please provide all information', 'error');
+        return;
+    }
+    
+    auth.createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+            const user = userCredential.user;
+            
+            // Save user data to database
+            database.ref('users/' + user.uid).set({
+                name: name,
+                email: email,
+                balance: 0,
+                uploadCount: 0,
+                downloadCount: 0,
+                reviewCount: 0
+            });
+            
+            showNotification('Successfully registered', 'success');
+            loginModal.classList.remove('active');
+            updateUIForLoggedInUser(user);
+        })
+        .catch((error) => {
+            showNotification('Registration failed: ' + error.message, 'error');
+        });
+});
+
+// Sidebar navigation
+document.querySelectorAll('.sidebar-menu a[data-page]').forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const page = link.getAttribute('data-page');
+        showPage(page);
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+    });
+});
+
+// Back to list button
+document.getElementById('backToList').addEventListener('click', () => {
+    appDetailPage.classList.add('hidden');
+    homePage.classList.remove('hidden');
+});
+
+// Submit request form
+document.getElementById('submitRequest').addEventListener('click', () => {
+    const appName = document.getElementById('appName').value;
+    
+    if (!appName) {
+        showNotification('Please provide app name', 'error');
+        return;
+    }
+    
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to submit request', 'error');
+        return;
+    }
+    
+    // Save request to database
+    database.ref('requests').push({
+        appName: appName,
+        userId: user.uid,
+        status: 'pending',
+        timestamp: Date.now()
+    });
+    
+    showNotification('Request successfully submitted', 'success');
+    document.getElementById('appName').value = '';
+});
+
+// Submit app form
+document.getElementById('submitApp').addEventListener('click', () => {
+    const category = document.getElementById('appCategory').value;
+    const type = document.getElementById('appType').value;
+    const name = document.getElementById('appNameUpload').value;
+    const icon = document.getElementById('appIcon').value;
+    const downloadLink = document.getElementById('appDownloadLink').value;
+    const version = document.getElementById('appVersion').value;
+    const company = document.getElementById('appCompany').value;
+    const screenshots = document.getElementById('appScreenshots').value;
+    const description = document.getElementById('appDescription').value;
+    
+    if (!category || !name || !icon || !downloadLink || !version || !company || !description) {
+        showNotification('Please provide all required information', 'error');
+        return;
+    }
+    
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to upload app', 'error');
+        return;
+    }
+    
+    // Save app to database
+    const appData = {
+        category: category,
+        type: type,
+        name: name,
+        icon: icon,
+        downloadLink: downloadLink,
+        version: version,
+        company: company,
+        screenshots: screenshots ? screenshots.split(',').map(s => s.trim()) : [],
+        description: description,
+        uploaderId: user.uid,
+        uploaderName: user.displayName || 'Anonymous',
+        uploadDate: new Date().toISOString(),
+        downloads: 0,
+        rating: 0,
+        reviews: 0,
+        status: 'pending'
+    };
+    
+    database.ref('apps').push(appData);
+    
+    // Update user upload count
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const newUploadCount = (userData.uploadCount || 0) + 1;
+        const newBalance = (userData.balance || 0) + 0.50;
+        
+        database.ref('users/' + user.uid).update({
+            uploadCount: newUploadCount,
+            balance: newBalance
+        });
+        
+        showNotification('App successfully uploaded', 'success');
+        
+        // Reset form
+        document.getElementById('appCategory').value = '';
+        document.getElementById('appType').value = 'free';
+        document.getElementById('appNameUpload').value = '';
+        document.getElementById('appIcon').value = '';
+        document.getElementById('appDownloadLink').value = '';
+        document.getElementById('appVersion').value = '';
+        document.getElementById('appCompany').value = '';
+        document.getElementById('appScreenshots').value = '';
+        document.getElementById('appDescription').value = '';
+        
+        // Update balance display if on balance page
+        if (!balancePage.classList.contains('hidden')) {
+            document.getElementById('balanceAmount').textContent = `$${newBalance.toFixed(2)}`;
+            checkWithdrawButton(newBalance);
+        }
+    });
+});
+
+// Edit profile button
+document.getElementById('editProfileBtn').addEventListener('click', () => {
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to edit profile', 'error');
+        return;
+    }
+    
+    // Load current user data
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        document.getElementById('editProfileName').value = userData.name || '';
+        document.getElementById('editProfileAvatar').value = userData.avatar || '';
+        document.getElementById('editProfilePassword').value = '';
+        
+        editProfileModal.classList.add('active');
+    });
+});
+
+// Save profile button
+document.getElementById('saveProfile').addEventListener('click', () => {
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to edit profile', 'error');
+        return;
+    }
+    
+    const name = document.getElementById('editProfileName').value;
+    const avatar = document.getElementById('editProfileAvatar').value;
+    const password = document.getElementById('editProfilePassword').value;
+    
+    if (!name) {
+        showNotification('Please provide name', 'error');
+        return;
+    }
+    
+    // Update user data in database
+    const updates = {
+        name: name,
+        avatar: avatar
+    };
+    
+    database.ref('users/' + user.uid).update(updates);
+    
+    // Update profile display
+    document.getElementById('profileName').textContent = name;
+    if (avatar) {
+        document.getElementById('profileAvatar').src = avatar;
+    }
+    
+    // Update password if provided
+    if (password) {
+        user.updatePassword(password).then(() => {
+            showNotification('Profile successfully updated', 'success');
             editProfileModal.classList.remove('active');
+        }).catch((error) => {
+            showNotification('Password update failed: ' + error.message, 'error');
         });
+    } else {
+        showNotification('Profile successfully updated', 'success');
+        editProfileModal.classList.remove('active');
+    }
+});
 
-        logoutBtn.addEventListener('click', () => {
-            auth.signOut().then(() => {
-                showNotification('Successfully logged out', 'success');
-                updateUIForLoggedOutUser();
-            }).catch((error) => {
-                showNotification('Failed to logout: ' + error.message, 'error');
-            });
+// Withdraw button
+document.getElementById('withdrawBtn').addEventListener('click', () => {
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to withdraw money', 'error');
+        return;
+    }
+    
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const balance = userData.balance || 0;
+        
+        if (balance < 500) {
+            showNotification('Can withdraw when minimum $500', 'error');
+            return;
+        }
+        
+        // Create withdrawal request
+        database.ref('withdrawals').push({
+            userId: user.uid,
+            amount: balance,
+            status: 'pending',
+            timestamp: Date.now()
         });
-
-        // Search functionality
-        searchInput.addEventListener('input', (e) => {
-            const searchTerm = e.target.value.trim();
-            
-            // Clear previous timeout
-            clearTimeout(searchTimeout);
-            
-            if (searchTerm.length < 2) {
-                searchResults.classList.remove('active');
-                return;
-            }
-            
-            // Show loading
-            searchResults.innerHTML = '<div class="search-loading"><i class="fas fa-spinner fa-spin"></i> Searching...</div>';
-            searchResults.classList.add('active');
-            
-            // Debounce search
-            searchTimeout = setTimeout(() => {
-                performSearch(searchTerm);
-            }, 300);
+        
+        // Reset balance
+        database.ref('users/' + user.uid).update({
+            balance: 0
         });
+        
+        // Update UI
+        document.getElementById('balanceAmount').textContent = '$0.00';
+        document.getElementById('withdrawBtn').disabled = true;
+        
+        showNotification('Withdrawal request successfully submitted', 'success');
+    });
+});
 
-        // Close search results when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!e.target.closest('.search-container')) {
-                searchResults.classList.remove('active');
-            }
+// Download button - লগইন ছাড়াই ডাউনলোড করা যাবে
+document.getElementById('downloadBtn').addEventListener('click', () => {
+    const appId = document.getElementById('downloadBtn').getAttribute('data-app-id');
+    if (!appId) return;
+    
+    // Get app data
+    database.ref('apps/' + appId).once('value').then((snapshot) => {
+        const appData = snapshot.val();
+        
+        // Increment download count
+        database.ref('apps/' + appId).update({
+            downloads: (appData.downloads || 0) + 1
         });
-
-        // Tab switching in login modal
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                const tabName = tab.getAttribute('data-tab');
-                
-                // Update active tab
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                tab.classList.add('active');
-                
-                // Update active tab content
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                document.getElementById(`${tabName}Tab`).classList.add('active');
-            });
-        });
-
-        // Login form submission
-        document.getElementById('loginSubmit').addEventListener('click', () => {
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            if (!email || !password) {
-                showNotification('Please provide email and password', 'error');
-                return;
-            }
-            
-            auth.signInWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    showNotification('Successfully logged in', 'success');
-                    loginModal.classList.remove('active');
-                    updateUIForLoggedInUser(user);
-                })
-                .catch((error) => {
-                    showNotification('Login failed: ' + error.message, 'error');
-                });
-        });
-
-        // Signup form submission
-        document.getElementById('signupSubmit').addEventListener('click', () => {
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            
-            if (!name || !email || !password) {
-                showNotification('Please provide all information', 'error');
-                return;
-            }
-            
-            auth.createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    const user = userCredential.user;
-                    
-                    // Save user data to database
-                    database.ref('users/' + user.uid).set({
-                        name: name,
-                        email: email,
-                        balance: 0,
-                        uploadCount: 0,
-                        downloadCount: 0,
-                        reviewCount: 0
-                    });
-                    
-                    showNotification('Successfully registered', 'success');
-                    loginModal.classList.remove('active');
-                    updateUIForLoggedInUser(user);
-                })
-                .catch((error) => {
-                    showNotification('Registration failed: ' + error.message, 'error');
-                });
-        });
-
-        // Sidebar navigation
-        document.querySelectorAll('.sidebar-menu a[data-page]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                const page = link.getAttribute('data-page');
-                showPage(page);
-                sidebar.classList.remove('active');
-                overlay.classList.remove('active');
-            });
-        });
-
-        // Back to list button
-        document.getElementById('backToList').addEventListener('click', () => {
-            appDetailPage.classList.add('hidden');
-            homePage.classList.remove('hidden');
-        });
-
-        // Submit request form
-        document.getElementById('submitRequest').addEventListener('click', () => {
-            const appName = document.getElementById('appName').value;
-            
-            if (!appName) {
-                showNotification('Please provide app name', 'error');
-                return;
-            }
-            
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to submit request', 'error');
-                return;
-            }
-            
-            // Save request to database
-            database.ref('requests').push({
-                appName: appName,
-                userId: user.uid,
-                status: 'pending',
-                timestamp: Date.now()
-            });
-            
-            showNotification('Request successfully submitted', 'success');
-            document.getElementById('appName').value = '';
-        });
-
-        // Submit app form
-        document.getElementById('submitApp').addEventListener('click', () => {
-            const category = document.getElementById('appCategory').value;
-            const type = document.getElementById('appType').value;
-            const name = document.getElementById('appNameUpload').value;
-            const icon = document.getElementById('appIcon').value;
-            const downloadLink = document.getElementById('appDownloadLink').value;
-            const version = document.getElementById('appVersion').value;
-            const company = document.getElementById('appCompany').value;
-            const screenshots = document.getElementById('appScreenshots').value;
-            const description = document.getElementById('appDescription').value;
-            
-            if (!category || !name || !icon || !downloadLink || !version || !company || !description) {
-                showNotification('Please provide all required information', 'error');
-                return;
-            }
-            
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to upload app', 'error');
-                return;
-            }
-            
-            // Save app to database
-            const appData = {
-                category: category,
-                type: type,
-                name: name,
-                icon: icon,
-                downloadLink: downloadLink,
-                version: version,
-                company: company,
-                screenshots: screenshots ? screenshots.split(',').map(s => s.trim()) : [],
-                description: description,
-                uploaderId: user.uid,
-                uploaderName: user.displayName || 'Anonymous',
-                uploadDate: new Date().toISOString(),
-                downloads: 0,
-                rating: 0,
-                reviews: 0,
-                status: 'pending'
-            };
-            
-            database.ref('apps').push(appData);
-            
-            // Update user upload count
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                const newUploadCount = (userData.uploadCount || 0) + 1;
-                const newBalance = (userData.balance || 0) + 0.50;
+        
+        // Check if user is logged in
+        const user = auth.currentUser;
+        if (user) {
+            // Update downloader's download count
+            database.ref('users/' + user.uid).once('value').then((userSnapshot) => {
+                const userData = userSnapshot.val();
+                const newDownloadCount = (userData.downloadCount || 0) + 1;
                 
                 database.ref('users/' + user.uid).update({
-                    uploadCount: newUploadCount,
-                    balance: newBalance
+                    downloadCount: newDownloadCount
                 });
-                
-                showNotification('App successfully uploaded', 'success');
-                
-                // Reset form
-                document.getElementById('appCategory').value = '';
-                document.getElementById('appType').value = 'free';
-                document.getElementById('appNameUpload').value = '';
-                document.getElementById('appIcon').value = '';
-                document.getElementById('appDownloadLink').value = '';
-                document.getElementById('appVersion').value = '';
-                document.getElementById('appCompany').value = '';
-                document.getElementById('appScreenshots').value = '';
-                document.getElementById('appDescription').value = '';
-                
-                // Update balance display if on balance page
-                if (!balancePage.classList.contains('hidden')) {
-                    document.getElementById('balanceAmount').textContent = `$${newBalance.toFixed(2)}`;
-                    checkWithdrawButton(newBalance);
-                }
             });
-        });
-
-        // Edit profile button
-        document.getElementById('editProfileBtn').addEventListener('click', () => {
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to edit profile', 'error');
-                return;
-            }
             
-            // Load current user data
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                document.getElementById('editProfileName').value = userData.name || '';
-                document.getElementById('editProfileAvatar').value = userData.avatar || '';
-                document.getElementById('editProfilePassword').value = '';
-                
-                editProfileModal.classList.add('active');
-            });
-        });
-
-        // Save profile button
-        document.getElementById('saveProfile').addEventListener('click', () => {
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to edit profile', 'error');
-                return;
-            }
-            
-            const name = document.getElementById('editProfileName').value;
-            const avatar = document.getElementById('editProfileAvatar').value;
-            const password = document.getElementById('editProfilePassword').value;
-            
-            if (!name) {
-                showNotification('Please provide name', 'error');
-                return;
-            }
-            
-            // Update user data in database
-            const updates = {
-                name: name,
-                avatar: avatar
-            };
-            
-            database.ref('users/' + user.uid).update(updates);
-            
-            // Update profile display
-            document.getElementById('profileName').textContent = name;
-            if (avatar) {
-                document.getElementById('profileAvatar').src = avatar;
-            }
-            
-            // Update password if provided
-            if (password) {
-                user.updatePassword(password).then(() => {
-                    showNotification('Profile successfully updated', 'success');
-                    editProfileModal.classList.remove('active');
-                }).catch((error) => {
-                    showNotification('Password update failed: ' + error.message, 'error');
-                });
-            } else {
-                showNotification('Profile successfully updated', 'success');
-                editProfileModal.classList.remove('active');
-            }
-        });
-
-        // Withdraw button
-        document.getElementById('withdrawBtn').addEventListener('click', () => {
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to withdraw money', 'error');
-                return;
-            }
-            
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                const balance = userData.balance || 0;
-                
-                if (balance < 500) {
-                    showNotification('Can withdraw when minimum $500', 'error');
-                    return;
-                }
-                
-                // Create withdrawal request
-                database.ref('withdrawals').push({
-                    userId: user.uid,
-                    amount: balance,
-                    status: 'pending',
-                    timestamp: Date.now()
-                });
-                
-                // Reset balance
-                database.ref('users/' + user.uid).update({
-                    balance: 0
-                });
-                
-                // Update UI
-                document.getElementById('balanceAmount').textContent = '$0.00';
-                document.getElementById('withdrawBtn').disabled = true;
-                
-                showNotification('Withdrawal request successfully submitted', 'success');
-            });
-        });
-
-        // Download button
-        document.getElementById('downloadBtn').addEventListener('click', () => {
-            const appId = document.getElementById('downloadBtn').getAttribute('data-app-id');
-            if (!appId) return;
-            
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to download', 'error');
-                return;
-            }
-            
-            // Get app data
-            database.ref('apps/' + appId).once('value').then((snapshot) => {
-                const appData = snapshot.val();
-                
-                // Increment download count
-                database.ref('apps/' + appId).update({
-                    downloads: (appData.downloads || 0) + 1
-                });
-                
-                // Get uploader ID and give them money
-                const uploaderId = appData.uploaderId;
-                
-                // Update uploader's balance (NOT downloader)
+            // Get uploader ID and give them money
+            const uploaderId = appData.uploaderId;
+            if (uploaderId) {
                 database.ref('users/' + uploaderId).once('value').then((uploaderSnapshot) => {
                     const uploaderData = uploaderSnapshot.val();
                     const newBalance = (uploaderData.balance || 0) + 0.01; // Uploader gets $0.01
@@ -2040,83 +2077,77 @@
                     database.ref('users/' + uploaderId).update({
                         balance: newBalance
                     });
-                    
-                    // Update downloader's download count only (no money)
-                    database.ref('users/' + user.uid).once('value').then((userSnapshot) => {
-                        const userData = userSnapshot.val();
-                        const newDownloadCount = (userData.downloadCount || 0) + 1;
-                        
-                        database.ref('users/' + user.uid).update({
-                            downloadCount: newDownloadCount
-                        });
-                    });
-                    
-                    // Update UI
-                    document.getElementById('appDetailDownloads').textContent = appData.downloads + 1;
-                    
-                    // Open download link
-                    window.open(appData.downloadLink, '_blank');
-                    
-                    showNotification('Download started', 'success');
                 });
-            });
-        });
+            }
+        }
+        
+        // Update UI
+        document.getElementById('appDetailDownloads').textContent = appData.downloads + 1;
+        
+        // Open download link
+        window.open(appData.downloadLink, '_blank');
+        
+        showNotification('Download started', 'success');
+    });
+});
 
-        // Submit review
-        document.getElementById('submitReview').addEventListener('click', () => {
-            const appId = document.getElementById('submitReview').getAttribute('data-app-id');
-            if (!appId) return;
+// Submit review
+document.getElementById('submitReview').addEventListener('click', () => {
+    const appId = document.getElementById('submitReview').getAttribute('data-app-id');
+    if (!appId) return;
+    
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to review', 'error');
+        return;
+    }
+    
+    const rating = document.getElementById('reviewRating').value;
+    const text = document.getElementById('reviewText').value;
+    
+    if (!text) {
+        showNotification('Please write review', 'error');
+        return;
+    }
+    
+    // Get user name
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const userName = userData.name || 'Anonymous';
+        
+        // Save review
+        database.ref('reviews/' + appId).push({
+            userId: user.uid,
+            userName: userName,
+            rating: rating,
+            text: text,
+            timestamp: Date.now()
+        });
+        
+        // Update app review count and calculate new rating
+        database.ref('reviews/' + appId).once('value').then((reviewsSnapshot) => {
+            const reviews = reviewsSnapshot.val();
+            let totalRating = 0;
+            let reviewCount = 0;
             
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to review', 'error');
-                return;
+            for (const key in reviews) {
+                totalRating += parseInt(reviews[key].rating);
+                reviewCount++;
             }
             
-            const rating = document.getElementById('reviewRating').value;
-            const text = document.getElementById('reviewText').value;
+            const avgRating = totalRating / reviewCount;
             
-            if (!text) {
-                showNotification('Please write review', 'error');
-                return;
-            }
+            database.ref('apps/' + appId).update({
+                reviews: reviewCount,
+                rating: avgRating.toFixed(1)
+            });
             
-            // Get user name
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                const userName = userData.name || 'Anonymous';
+            // Get uploader ID and give them money
+            database.ref('apps/' + appId).once('value').then((appSnapshot) => {
+                const appData = appSnapshot.val();
+                const uploaderId = appData.uploaderId;
                 
-                // Save review
-                database.ref('reviews/' + appId).push({
-                    userId: user.uid,
-                    userName: userName,
-                    rating: rating,
-                    text: text,
-                    timestamp: Date.now()
-                });
-                
-                // Update app review count and calculate new rating
-                database.ref('reviews/' + appId).once('value').then((reviewsSnapshot) => {
-                    const reviews = reviewsSnapshot.val();
-                    let totalRating = 0;
-                    let reviewCount = 0;
-                    
-                    for (const key in reviews) {
-                        totalRating += parseInt(reviews[key].rating);
-                        reviewCount++;
-                    }
-                    
-                    const avgRating = totalRating / reviewCount;
-                    
-                    database.ref('apps/' + appId).update({
-                        reviews: reviewCount,
-                        rating: avgRating.toFixed(1)
-                    });
-                    
-                    // Get uploader ID and give them money
-                    const uploaderId = appData.uploaderId;
-                    
-                    // Update uploader's balance (NOT reviewer)
+                if (uploaderId) {
                     database.ref('users/' + uploaderId).once('value').then((uploaderSnapshot) => {
                         const uploaderData = uploaderSnapshot.val();
                         const newBalance = (uploaderData.balance || 0) + 0.02; // Uploader gets $0.02
@@ -2147,19 +2178,23 @@
                             showNotification('Review successfully submitted', 'success');
                         });
                     });
-                });
+                }
             });
         });
+    });
+});
 
 // Share functionality
-// দ্রষ্টব্য: এই কোডটি আশা করে যে 'showNotification', 'incrementShareCount', এবং 'currentAppData' ভেরিয়েবলগুলি 
-// আপনার ফাইলের অন্য কোথাও আগে থেকেই ডিফাইন করা আছে।
-
 copyLinkBtn.addEventListener('click', () => {
-    const shareUrl = "https://modbox.free.nf/"; // আপনার স্ট্যাটিক লিঙ্ক
+    if (!currentAppData || !currentAppData.downloadLink) {
+        showNotification('App information not loaded yet.', 'error');
+        return;
+    }
+    
+    const shareUrl = currentAppData.downloadLink;
     
     navigator.clipboard.writeText(shareUrl).then(() => {
-        showNotification('Link copied to clipboard!', 'success');
+        showNotification('Download link copied to clipboard!', 'success');
         incrementShareCount();
     }).catch(() => {
         showNotification('Failed to copy link', 'error');
@@ -2167,22 +2202,37 @@ copyLinkBtn.addEventListener('click', () => {
 });
 
 whatsappBtn.addEventListener('click', () => {
-    const shareUrl = "https://modbox.free.nf/"; // আপনার স্ট্যাটিক লিঙ্ক
-    const message = `Check out this amazing app: ${currentAppData.name}\n${shareUrl}`;
+    if (!currentAppData || !currentAppData.downloadLink) {
+        showNotification('App information not loaded yet.', 'error');
+        return;
+    }
+    
+    const shareUrl = currentAppData.downloadLink;
+    const message = `Check out this amazing app: ${currentAppData.name}\nDownload here: ${shareUrl}`;
     
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
     incrementShareCount();
 });
 
 facebookBtn.addEventListener('click', () => {
-    const shareUrl = "https://modbox.free.nf/"; // আপনার স্ট্যাটিক লিঙ্ক
+    if (!currentAppData || !currentAppData.downloadLink) {
+        showNotification('App information not loaded yet.', 'error');
+        return;
+    }
+    
+    const shareUrl = currentAppData.downloadLink;
     
     window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`, '_blank');
     incrementShareCount();
 });
 
 twitterBtn.addEventListener('click', () => {
-    const shareUrl = "https://modbox.free.nf/"; // আপনার স্ট্যাটিক লিঙ্ক
+    if (!currentAppData || !currentAppData.downloadLink) {
+        showNotification('App information not loaded yet.', 'error');
+        return;
+    }
+    
+    const shareUrl = currentAppData.downloadLink;
     const text = `Check out ${currentAppData.name} - ${currentAppData.description.substring(0, 100)}...`;
     
     window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(shareUrl)}`, '_blank');
@@ -2190,770 +2240,858 @@ twitterBtn.addEventListener('click', () => {
 });
 
 emailBtn.addEventListener('click', () => {
-    const shareUrl = "https://modbox.free.nf/"; // আপনার স্ট্যাটিক লিঙ্ক
-    const subject = `Check out ${currentAppData.name}`;
+    if (!currentAppData || !currentAppData.downloadLink) {
+        showNotification('App information not loaded yet.', 'error');
+        return;
+    }
+    
+    const shareUrl = currentAppData.downloadLink;
+    const subject = `Check out this app: ${currentAppData.name}`;
     const body = `I found this amazing app and thought you might like it:\n\n${currentAppData.name}\n${currentAppData.description}\n\nDownload here: ${shareUrl}`;
     
     window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     incrementShareCount();
 });
 
+// Helper Functions
+function incrementShareCount() {
+    if (!currentAppId) return;
+    
+    database.ref('shareCount/' + currentAppId).once('value').then((snapshot) => {
+        const currentCount = snapshot.val() || 0;
+        const newCount = currentCount + 1;
+        
+        database.ref('shareCount/' + currentAppId).set(newCount);
+        document.getElementById('shareCount').textContent = newCount;
+        
+        // Give uploader bonus for sharing
+        giveShareBonus();
+    });
+}
 
+function giveShareBonus() {
+    if (!currentAppData || !currentAppData.uploaderId) return;
+    
+    const bonusAmount = 0.01; // $0.01 bonus per share
+    
+    database.ref('users/' + currentAppData.uploaderId).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const newBalance = (userData.balance || 0) + bonusAmount;
+        
+        database.ref('users/' + currentAppData.uploaderId).update({
+            balance: newBalance
+        });
+    });
+}
 
-        // Helper Functions
-        function incrementShareCount() {
-            if (!currentAppId) return;
-            
-            database.ref('shareCount/' + currentAppId).once('value').then((snapshot) => {
-                const currentCount = snapshot.val() || 0;
-                const newCount = currentCount + 1;
-                
-                database.ref('shareCount/' + currentAppId).set(newCount);
-                document.getElementById('shareCount').textContent = newCount;
-                
-                // Give uploader bonus for sharing
-                giveShareBonus();
-            });
+function performSearch(searchTerm) {
+    if (!allAppsData.length) {
+        searchResults.innerHTML = '<div class="no-results">No app found</div>';
+        return;
+    }
+    
+    const results = allAppsData.filter(app => {
+        return app.status === 'approved' && 
+               app.name.toLowerCase().includes(searchTerm.toLowerCase());
+    });
+    
+    displaySearchResults(results, searchTerm);
+}
+
+function displaySearchResults(results, searchTerm) {
+    if (results.length === 0) {
+        searchResults.innerHTML = `<div class="no-results">No app found with "${searchTerm}"</div>`;
+        return;
+    }
+    
+    let html = '';
+    results.forEach(app => {
+        html += `
+            <div class="search-result-item" onclick="showAppDetail('${app.id}')">
+                <img src="${app.icon}" alt="${app.name}" class="search-result-icon">
+                <div class="search-result-info">
+                    <div class="search-result-name">${highlightSearchTerm(app.name, searchTerm)}</div>
+                    <div class="search-result-category">${app.category}</div>
+                </div>
+            </div>
+        `;
+    });
+    
+    searchResults.innerHTML = html;
+}
+
+function highlightSearchTerm(text, searchTerm) {
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<strong>$1</strong>');
+}
+
+function showPage(pageName) {
+    // Hide all pages
+    homePage.classList.add('hidden');
+    requestPage.classList.add('hidden');
+    appsPage.classList.add('hidden');
+    uploadPage.classList.add('hidden');
+    profilePage.classList.add('hidden');
+    balancePage.classList.add('hidden');
+    settingsPage.classList.add('hidden');
+    appDetailPage.classList.add('hidden');
+    
+    // Show selected page
+    switch(pageName) {
+        case 'home':
+            homePage.classList.remove('hidden');
+            loadHomeData();
+            break;
+        case 'request':
+            requestPage.classList.remove('hidden');
+            break;
+        case 'apps':
+            appsPage.classList.remove('hidden');
+            loadUserApps();
+            break;
+        case 'upload':
+            uploadPage.classList.remove('hidden');
+            break;
+        case 'profile':
+            profilePage.classList.remove('hidden');
+            loadProfileData();
+            break;
+        case 'balance':
+            balancePage.classList.remove('hidden');
+            loadBalanceData();
+            break;
+        case 'settings':
+            settingsPage.classList.remove('hidden');
+            break;
+    }
+}
+
+function loadHomeData() {
+    // Load events
+    database.ref('events').once('value').then((snapshot) => {
+        const events = snapshot.val();
+        const eventsContainer = document.getElementById('eventsContainer');
+        eventsContainer.innerHTML = '';
+        
+        if (!events || Object.keys(events).length === 0) {
+            eventsContainer.innerHTML = '<p style="text-align:center; padding: 20px;">No events at the moment.</p>';
+            return;
         }
 
-        function giveShareBonus() {
-            if (!currentAppData || !currentAppData.uploaderId) return;
-            
-            const bonusAmount = 0.01; // $0.01 bonus per share
-            
-            database.ref('users/' + currentAppData.uploaderId).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                const newBalance = (userData.balance || 0) + bonusAmount;
-                
-                database.ref('users/' + currentAppData.uploaderId).update({
-                    balance: newBalance
-                });
-            });
-        }
+        // Create wrapper div for all event cards
+        const eventsWrapper = document.createElement('div');
+        eventsWrapper.className = 'events-wrapper';
 
-        function performSearch(searchTerm) {
-            if (!allAppsData.length) {
-                searchResults.innerHTML = '<div class="no-results">No app found</div>';
-                return;
+        let eventIndex = 0;
+        for (const key in events) {
+            const event = events[key];
+            const eventCard = document.createElement('div');
+            eventCard.className = 'event-card';
+            eventCard.innerHTML = `
+                <img src="${event.image}" alt="${event.title}" class="event-img">
+                <h3 class="event-title">${event.title}</h3>
+                <a href="${event.link}" class="event-link" target="_blank">Learn More</a>
+            `;
+            eventsWrapper.appendChild(eventCard);
+            eventIndex++;
+        }
+        
+        eventsContainer.appendChild(eventsWrapper);
+
+        // Auto-slider logic
+        let currentEventIndex = 0;
+        const totalEvents = eventIndex;
+
+        const slideEvents = () => {
+            currentEventIndex = (currentEventIndex + 1) % totalEvents;
+            eventsWrapper.style.transform = `translateX(-${currentEventIndex * 100}%)`;
+        };
+
+        // Slide every 3 seconds
+        let eventInterval = setInterval(slideEvents, 3000);
+
+        // Pause sliding on mouse hover
+        eventsContainer.addEventListener('mouseenter', () => {
+            clearInterval(eventInterval);
+        });
+
+        // Resume sliding when mouse leaves
+        eventsContainer.addEventListener('mouseleave', () => {
+            eventInterval = setInterval(slideEvents, 3000);
+        });
+    });
+    
+    // Load popular apps
+    database.ref('apps').orderByChild('downloads').limitToLast(10).once('value').then((snapshot) => {
+        const apps = snapshot.val();
+        const popularAppsContainer = document.getElementById('popularApps');
+        popularAppsContainer.innerHTML = '';
+        
+        // Create an array of apps
+        const appsArray = [];
+        for (const key in apps) {
+            if (apps[key].status === 'approved') {
+                appsArray.push({ id: key, ...apps[key] });
             }
-            
-            const results = allAppsData.filter(app => {
-                return app.status === 'approved' && 
-                       app.name.toLowerCase().includes(searchTerm.toLowerCase());
-            });
-            
-            displaySearchResults(results, searchTerm);
         }
-
-        function displaySearchResults(results, searchTerm) {
-            if (results.length === 0) {
-                searchResults.innerHTML = `<div class="no-results">No app found with "${searchTerm}"</div>`;
-                return;
-            }
-            
-            let html = '';
-            results.forEach(app => {
-                html += `
-                    <div class="search-result-item" onclick="showAppDetail('${app.id}')">
-                        <img src="${app.icon}" alt="${app.name}" class="search-result-icon">
-                        <div class="search-result-info">
-                            <div class="search-result-name">${highlightSearchTerm(app.name, searchTerm)}</div>
-                            <div class="search-result-category">${app.category}</div>
-                        </div>
+        
+        // Sort apps by downloads (highest first)
+        appsArray.sort((a, b) => b.downloads - a.downloads);
+        
+        // Duplicate the array for continuous scrolling
+        const duplicatedApps = [...appsArray, ...appsArray];
+        
+        duplicatedApps.forEach(app => {
+            const appCard = document.createElement('div');
+            appCard.className = 'app-card';
+            appCard.innerHTML = `
+                <img src="${app.icon}" alt="${app.name}" class="app-icon">
+                <div class="app-info">
+                    <h3 class="app-name">${app.name}</h3>
+                    <p class="app-category">${app.category}</p>
+                    <div class="app-stats">
+                        <span class="app-rating">${generateStars(app.rating)}</span>
+                        <span>${app.downloads} downloads</span>
                     </div>
-                `;
+                </div>
+            `;
+            
+            appCard.addEventListener('click', () => {
+                showAppDetail(app.id);
             });
             
-            searchResults.innerHTML = html;
-        }
-
-        function highlightSearchTerm(text, searchTerm) {
-            const regex = new RegExp(`(${searchTerm})`, 'gi');
-            return text.replace(regex, '<strong>$1</strong>');
-        }
-
-        function showPage(pageName) {
-            // Hide all pages
-            homePage.classList.add('hidden');
-            requestPage.classList.add('hidden');
-            appsPage.classList.add('hidden');
-            uploadPage.classList.add('hidden');
-            profilePage.classList.add('hidden');
-            balancePage.classList.add('hidden');
-            settingsPage.classList.add('hidden');
-            appDetailPage.classList.add('hidden');
+            popularAppsContainer.appendChild(appCard);
+        });
+    });
+    
+    // Load all apps
+    database.ref('apps').orderByChild('uploadDate').limitToLast(20).once('value').then((snapshot) => {
+        const apps = snapshot.val();
+        const allAppsContainer = document.getElementById('allApps');
+        allAppsContainer.innerHTML = '';
+        
+        let appCount = 0;
+        for (const key in apps) {
+            const app = apps[key];
+            if (app.status !== 'approved') continue;
             
-            // Show selected page
-            switch(pageName) {
-                case 'home':
-                    homePage.classList.remove('hidden');
-                    loadHomeData();
-                    break;
-                case 'request':
-                    requestPage.classList.remove('hidden');
-                    break;
-                case 'apps':
-                    appsPage.classList.remove('hidden');
-                    loadUserApps();
-                    break;
-                case 'upload':
-                    uploadPage.classList.remove('hidden');
-                    break;
-                case 'profile':
-                    profilePage.classList.remove('hidden');
-                    loadProfileData();
-                    break;
-                case 'balance':
-                    balancePage.classList.remove('hidden');
-                    loadBalanceData();
-                    break;
-                case 'settings':
-                    settingsPage.classList.remove('hidden');
-                    break;
-            }
-        }
-
-        function loadHomeData() {
-            // Load events
-            database.ref('events').once('value').then((snapshot) => {
-                const events = snapshot.val();
-                const eventsContainer = document.getElementById('eventsContainer');
-                eventsContainer.innerHTML = '';
-                
-                for (const key in events) {
-                    const event = events[key];
-                    const eventCard = document.createElement('div');
-                    eventCard.className = 'event-card';
-                    eventCard.innerHTML = `
-                        <img src="${event.image}" alt="${event.title}" class="event-img">
-                        <div class="event-content">
-                            <h3 class="event-title">${event.title}</h3>
-                            <a href="${event.link}" class="event-link" target="_blank">Learn More</a>
-                        </div>
-                    `;
-                    eventsContainer.appendChild(eventCard);
+            const appItem = document.createElement('div');
+            appItem.className = 'app-item';
+            appItem.innerHTML = `
+                <img src="${app.icon}" alt="${app.name}" class="app-item-icon">
+                <div class="app-item-info">
+                    <h3 class="app-item-name">${app.name}</h3>
+                    <p class="app-item-details">${app.company} • ${app.category} • ${app.version}</p>
+                    <p class="app-item-details">${app.downloads} downloads • ${generateStars(app.rating)} • ${app.reviews} reviews</p>
+                    <p class="app-item-details">Uploaded: ${new Date(app.uploadDate).toLocaleDateString()}</p>
+                </div>
+                <button class="btn btn-primary get-btn" data-app-id="${key}">Get</button>
+            `;
+            
+            // Add event listener to entire app item
+            appItem.addEventListener('click', (e) => {
+                // If not clicking on the Get button, still navigate to app detail
+                if (!e.target.classList.contains('get-btn')) {
+                    showAppDetail(key);
                 }
             });
             
-            // Load popular apps with horizontal scrolling
-            database.ref('apps').orderByChild('downloads').limitToLast(10).once('value').then((snapshot) => {
-                const apps = snapshot.val();
-                const popularAppsContainer = document.getElementById('popularApps');
-                popularAppsContainer.innerHTML = '';
-                
-                // Create an array of apps
-                const appsArray = [];
-                for (const key in apps) {
-                    if (apps[key].status === 'approved') {
-                        appsArray.push({ id: key, ...apps[key] });
-                    }
-                }
-                
-                // Duplicate the array for continuous scrolling
-                const duplicatedApps = [...appsArray, ...appsArray];
-                
-                duplicatedApps.forEach(app => {
-                    const appCard = document.createElement('div');
-                    appCard.className = 'app-card';
-                    appCard.innerHTML = `
-                        <img src="${app.icon}" alt="${app.name}" class="app-icon">
-                        <div class="app-info">
-                            <h3 class="app-name">${app.name}</h3>
-                            <p class="app-category">${app.category}</p>
-                            <div class="app-stats">
-                                <span class="app-rating">${generateStars(app.rating)}</span>
-                                <span>${app.downloads} downloads</span>
-                            </div>
-                        </div>
-                    `;
-                    
-                    appCard.addEventListener('click', () => {
-                        showAppDetail(app.id);
-                    });
-                    
-                    popularAppsContainer.appendChild(appCard);
-                });
+            // Add event listener to Get button
+            appItem.querySelector('.get-btn').addEventListener('click', (e) => {
+                e.stopPropagation();
+                showAppDetail(key);
             });
             
-            // Load all apps
-            database.ref('apps').orderByChild('uploadDate').limitToLast(20).once('value').then((snapshot) => {
-                const apps = snapshot.val();
-                const allAppsContainer = document.getElementById('allApps');
-                allAppsContainer.innerHTML = '';
-                
-                let appCount = 0;
-                for (const key in apps) {
-                    const app = apps[key];
-                    if (app.status !== 'approved') continue;
-                    
-                    const appItem = document.createElement('div');
-                    appItem.className = 'app-item';
-                    appItem.innerHTML = `
-                        <img src="${app.icon}" alt="${app.name}" class="app-item-icon">
-                        <div class="app-item-info">
-                            <h3 class="app-item-name">${app.name}</h3>
-                            <p class="app-item-details">${app.company} • ${app.category} • ${app.version}</p>
-                            <p class="app-item-details">${app.downloads} downloads • ${generateStars(app.rating)} • ${app.reviews} reviews</p>
-                            <p class="app-item-details">Uploaded: ${new Date(app.uploadDate).toLocaleDateString()}</p>
-                        </div>
-                        <button class="btn btn-primary get-btn" data-app-id="${key}">Get</button>
-                    `;
-                    
-                    // Add event listener to entire app item
-                    appItem.addEventListener('click', (e) => {
-                        // If not clicking on the Get button, still navigate to app detail
-                        if (!e.target.classList.contains('get-btn')) {
-                            showAppDetail(key);
-                        }
-                    });
-                    
-                    // Add event listener to Get button
-                    appItem.querySelector('.get-btn').addEventListener('click', (e) => {
-                        e.stopPropagation();
-                        showAppDetail(key);
-                    });
-                    
-                    allAppsContainer.appendChild(appItem);
-                    
-                    // Add ad after every 10 apps
-                    appCount++;
-                    if (appCount % 10 === 0) {
-                        const adContainer = document.createElement('div');
-                        adContainer.className = 'ad-container';
-                        adContainer.innerHTML = `
-                            <div class="ad-label">Advertisement</div>
-                            <div id="ad${appCount}">
-                                <!-- Ad will be loaded here -->
-                            </div>
-                        `;
-                        allAppsContainer.appendChild(adContainer);
-                    }
-                }
-            });
+            allAppsContainer.appendChild(appItem);
             
-            // Load ads
-            loadAds();
-        }
-
-        function loadUserApps() {
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to see your apps', 'error');
-                return;
-            }
-            
-            database.ref('apps').orderByChild('uploaderId').equalTo(user.uid).once('value').then((snapshot) => {
-                const apps = snapshot.val();
-                const userAppsContainer = document.getElementById('userApps');
-                userAppsContainer.innerHTML = '';
-                
-                for (const key in apps) {
-                    const app = apps[key];
-                    
-                    const appItem = document.createElement('div');
-                    appItem.className = 'app-item';
-                    appItem.innerHTML = `
-                        <img src="${app.icon}" alt="${app.name}" class="app-item-icon">
-                        <div class="app-item-info">
-                            <h3 class="app-item-name">${app.name}</h3>
-                            <p class="app-item-details">${app.company} • ${app.category} • ${app.version}</p>
-                            <p class="app-item-details">${app.downloads} downloads • ${generateStars(app.rating)} • ${app.reviews} reviews</p>
-                            <p class="app-item-details">Uploaded: ${new Date(app.uploadDate).toLocaleDateString()}</p>
-                            <p class="app-item-details">Status: ${app.status === 'approved' ? 'Approved' : app.status === 'pending' ? 'Pending' : 'Rejected'}</p>
-                        </div>
-                        <div>
-                            <button class="btn btn-warning edit-app" data-app-id="${key}">Edit</button>
-                            <button class="btn btn-danger delete-app" data-app-id="${key}">Delete</button>
-                        </div>
-                    `;
-                    
-                    appItem.querySelector('.edit-app').addEventListener('click', () => {
-                        editApp(key);
-                    });
-                    
-                    appItem.querySelector('.delete-app').addEventListener('click', () => {
-                        deleteApp(key);
-                    });
-                    
-                    userAppsContainer.appendChild(appItem);
-                }
-                
-                // Add ad
+            // Add ad after every 10 apps
+            appCount++;
+            if (appCount % 10 === 0) {
                 const adContainer = document.createElement('div');
                 adContainer.className = 'ad-container';
                 adContainer.innerHTML = `
                     <div class="ad-label">Advertisement</div>
-                    <div id="userAppsAd">
+                    <div id="ad${appCount}">
                         <!-- Ad will be loaded here -->
                     </div>
                 `;
-                userAppsContainer.appendChild(adContainer);
-                
-                // Load ad
-                database.ref('ads').once('value').then((snapshot) => {
-                    const ads = snapshot.val();
-                    if (ads && ads.userApps) {
-                        document.getElementById('userAppsAd').innerHTML = ads.userApps;
-                    }
-                });
-            });
-        }
-
-        function loadProfileData() {
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to see profile', 'error');
-                return;
-            }
-            
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                
-                document.getElementById('profileName').textContent = userData.name || 'User';
-                document.getElementById('profileUID').textContent = `UID: ${user.uid}`;
-                document.getElementById('uploadCount').textContent = userData.uploadCount || 0;
-                document.getElementById('downloadCount').textContent = userData.downloadCount || 0;
-                document.getElementById('reviewCount').textContent = userData.reviewCount || 0;
-                
-                if (userData.avatar) {
-                    document.getElementById('profileAvatar').src = userData.avatar;
-                }
-            });
-        }
-
-        function loadBalanceData() {
-            const user = auth.currentUser;
-            if (!user) {
-                showNotification('Please login to see balance', 'error');
-                return;
-            }
-            
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                const balance = userData.balance || 0;
-                
-                document.getElementById('balanceAmount').textContent = `$${balance.toFixed(2)}`;
-                checkWithdrawButton(balance);
-            });
-        }
-
-        function checkWithdrawButton(balance) {
-            const withdrawBtn = document.getElementById('withdrawBtn');
-            if (balance >= 500) {
-                withdrawBtn.disabled = false;
-            } else {
-                withdrawBtn.disabled = true;
+                allAppsContainer.appendChild(adContainer);
             }
         }
+    });
+    
+    // Load ads
+    loadAds();
+}
 
-        function showAppDetail(appId) {
-            // Close search results if open
-            searchResults.classList.remove('active');
-            searchInput.value = '';
+function loadUserApps() {
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to see your apps', 'error');
+        return;
+    }
+    
+    database.ref('apps').orderByChild('uploaderId').equalTo(user.uid).once('value').then((snapshot) => {
+        const apps = snapshot.val();
+        const userAppsContainer = document.getElementById('userApps');
+        userAppsContainer.innerHTML = '';
+        
+        for (const key in apps) {
+            const app = apps[key];
             
-            currentAppId = appId;
+            const appItem = document.createElement('div');
+            appItem.className = 'app-item';
+            appItem.innerHTML = `
+                <img src="${app.icon}" alt="${app.name}" class="app-item-icon">
+                <div class="app-item-info">
+                    <h3 class="app-item-name">${app.name}</h3>
+                    <p class="app-item-details">${app.company} • ${app.category} • ${app.version}</p>
+                    <p class="app-item-details">${app.downloads} downloads • ${generateStars(app.rating)} • ${app.reviews} reviews</p>
+                    <p class="app-item-details">Uploaded: ${new Date(app.uploadDate).toLocaleDateString()}</p>
+                    <p class="app-item-details">Status: ${app.status === 'approved' ? 'Approved' : app.status === 'pending' ? 'Pending' : 'Rejected'}</p>
+                </div>
+                <div>
+                    <button class="btn btn-warning edit-app" data-app-id="${key}">Edit</button>
+                    <button class="btn btn-danger delete-app" data-app-id="${key}">Delete</button>
+                </div>
+            `;
             
-            database.ref('apps/' + appId).once('value').then((snapshot) => {
-                currentAppData = snapshot.val();
-                
-                // Set app detail information
-                document.getElementById('appDetailIcon').src = currentAppData.icon;
-                document.getElementById('appDetailName').textContent = currentAppData.name;
-                document.getElementById('appDetailCompany').textContent = `Company: ${currentAppData.company}`;
-                document.getElementById('appDetailVersion').textContent = `Version: ${currentAppData.version}`;
-                document.getElementById('appDetailUploadDate').textContent = `Uploaded: ${new Date(currentAppData.uploadDate).toLocaleDateString()}`;
-                document.getElementById('appDetailRating').textContent = currentAppData.rating || 0;
-                document.getElementById('appDetailDownloads').textContent = currentAppData.downloads || 0;
-                document.getElementById('appDetailReviews').textContent = currentAppData.reviews || 0;
-                document.getElementById('appDetailDescription').textContent = currentAppData.description;
-                
-                // Set download button
-                document.getElementById('downloadBtn').setAttribute('data-app-id', appId);
-                
-                // Load screenshots
-                const screenshotsContainer = document.getElementById('appDetailScreenshots');
-                screenshotsContainer.innerHTML = '';
-                
-                if (currentAppData.screenshots && currentAppData.screenshots.length > 0) {
-                    currentAppData.screenshots.forEach(screenshot => {
-                        const img = document.createElement('img');
-                        img.src = screenshot;
-                        img.alt = 'Screenshot';
-                        img.className = 'screenshot';
-                        screenshotsContainer.appendChild(img);
-                    });
-                } else {
-                    // Add placeholder if no screenshots
-                    const placeholder = document.createElement('div');
-                    placeholder.style.textAlign = 'center';
-                    placeholder.style.padding = '20px';
-                    placeholder.style.color = '#999';
-                    placeholder.textContent = 'No screenshot found';
-                    screenshotsContainer.appendChild(placeholder);
-                }
-                
-                // Load reviews
-                loadReviews(appId);
-                
-                // Set review form
-                document.getElementById('submitReview').setAttribute('data-app-id', appId);
-                
-                // Load uploader's other apps
-                database.ref('apps').orderByChild('uploaderId').equalTo(currentAppData.uploaderId).once('value').then((snapshot) => {
-                    const apps = snapshot.val();
-                    const uploaderAppsContainer = document.getElementById('uploaderApps');
-                    uploaderAppsContainer.innerHTML = '';
-                    
-                    for (const key in apps) {
-                        const uploaderApp = apps[key];
-                        if (uploaderApp.status !== 'approved' || key === appId) continue;
-                        
-                        const appCard = document.createElement('div');
-                        appCard.className = 'app-card';
-                        appCard.innerHTML = `
-                            <img src="${uploaderApp.icon}" alt="${uploaderApp.name}" class="app-icon">
-                            <div class="app-info">
-                                <h3 class="app-name">${uploaderApp.name}</h3>
-                                <p class="app-category">${uploaderApp.category}</p>
-                                <div class="app-stats">
-                                    <span class="app-rating">${generateStars(uploaderApp.rating)}</span>
-                                    <span>${uploaderApp.downloads} downloads</span>
-                                </div>
-                            </div>
-                        `;
-                        
-                        appCard.addEventListener('click', () => {
-                            showAppDetail(key);
-                        });
-                        
-                        uploaderAppsContainer.appendChild(appCard);
-                    }
-                    
-                    if (uploaderAppsContainer.children.length === 0) {
-                        const noApps = document.createElement('div');
-                        noApps.style.textAlign = 'center';
-                        noApps.style.padding = '20px';
-                        noApps.style.color = '#999';
-                        noApps.textContent = 'No other apps from uploader';
-                        uploaderAppsContainer.appendChild(noApps);
-                    }
-                });
-                
-                // Load share count
-                loadShareCount(appId);
-                
-                // Load ads for app detail page
-                loadAppDetailAds();
-                
-                // Show app detail page
-                homePage.classList.add('hidden');
-                appDetailPage.classList.remove('hidden');
+            appItem.querySelector('.edit-app').addEventListener('click', () => {
+                editApp(key);
             });
+            
+            appItem.querySelector('.delete-app').addEventListener('click', () => {
+                deleteApp(key);
+            });
+            
+            userAppsContainer.appendChild(appItem);
         }
+        
+        // Add ad
+        const adContainer = document.createElement('div');
+        adContainer.className = 'ad-container';
+        adContainer.innerHTML = `
+            <div class="ad-label">Advertisement</div>
+            <div id="userAppsAd">
+                <!-- Ad will be loaded here -->
+            </div>
+        `;
+        userAppsContainer.appendChild(adContainer);
+        
+        // Load ad
+        database.ref('ads').once('value').then((snapshot) => {
+            const ads = snapshot.val();
+            if (ads && ads.userApps) {
+                document.getElementById('userAppsAd').innerHTML = ads.userApps;
+            }
+        });
+    });
+}
 
-        function loadReviews(appId) {
-            database.ref('reviews/' + appId).once('value').then((snapshot) => {
-                const reviews = snapshot.val();
-                const reviewsList = document.getElementById('reviewsList');
-                reviewsList.innerHTML = '';
+function loadProfileData() {
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to see profile', 'error');
+        return;
+    }
+    
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        
+        document.getElementById('profileName').textContent = userData.name || 'User';
+        document.getElementById('profileUID').textContent = `UID: ${user.uid}`;
+        document.getElementById('uploadCount').textContent = userData.uploadCount || 0;
+        document.getElementById('downloadCount').textContent = userData.downloadCount || 0;
+        document.getElementById('reviewCount').textContent = userData.reviewCount || 0;
+        
+        if (userData.avatar) {
+            document.getElementById('profileAvatar').src = userData.avatar;
+        }
+    });
+}
+
+function loadBalanceData() {
+    const user = auth.currentUser;
+    if (!user) {
+        showNotification('Please login to see balance', 'error');
+        return;
+    }
+    
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const balance = userData.balance || 0;
+        
+        document.getElementById('balanceAmount').textContent = `$${balance.toFixed(2)}`;
+        checkWithdrawButton(balance);
+    });
+}
+
+function checkWithdrawButton(balance) {
+    const withdrawBtn = document.getElementById('withdrawBtn');
+    if (balance >= 500) {
+        withdrawBtn.disabled = false;
+    } else {
+        withdrawBtn.disabled = true;
+    }
+}
+
+function showAppDetail(appId) {
+    // Close search results if open
+    searchResults.classList.remove('active');
+    searchInput.value = '';
+    
+    currentAppId = appId;
+    
+    database.ref('apps/' + appId).once('value').then((snapshot) => {
+        currentAppData = snapshot.val();
+        
+        // Set app detail information
+        document.getElementById('appDetailIcon').src = currentAppData.icon;
+        document.getElementById('appDetailName').textContent = currentAppData.name;
+        document.getElementById('appDetailCompany').textContent = `Company: ${currentAppData.company}`;
+        document.getElementById('appDetailVersion').textContent = `Version: ${currentAppData.version}`;
+        document.getElementById('appDetailUploadDate').textContent = `Uploaded: ${new Date(currentAppData.uploadDate).toLocaleDateString()}`;
+        document.getElementById('appDetailRating').textContent = currentAppData.rating || 0;
+        document.getElementById('appDetailDownloads').textContent = currentAppData.downloads || 0;
+        document.getElementById('appDetailReviews').textContent = currentAppData.reviews || 0;
+        document.getElementById('appDetailDescription').textContent = currentAppData.description;
+        
+        // Set download button
+        document.getElementById('downloadBtn').setAttribute('data-app-id', appId);
+        
+        // Load screenshots
+        const screenshotsContainer = document.getElementById('appDetailScreenshots');
+        screenshotsContainer.innerHTML = '';
+        
+        if (currentAppData.screenshots && currentAppData.screenshots.length > 0) {
+            currentAppData.screenshots.forEach(screenshot => {
+                const img = document.createElement('img');
+                img.src = screenshot;
+                img.alt = 'Screenshot';
+                img.className = 'screenshot';
+                screenshotsContainer.appendChild(img);
+            });
+        } else {
+            // Add placeholder if no screenshots
+            const placeholder = document.createElement('div');
+            placeholder.style.textAlign = 'center';
+            placeholder.style.padding = '20px';
+            placeholder.style.color = '#999';
+            placeholder.textContent = 'No screenshot found';
+            screenshotsContainer.appendChild(placeholder);
+        }
+        
+        // Load reviews
+        loadReviews(appId);
+        
+        // Set review form
+        document.getElementById('submitReview').setAttribute('data-app-id', appId);
+        
+        // Load uploader's other apps
+        database.ref('apps').orderByChild('uploaderId').equalTo(currentAppData.uploaderId).once('value').then((snapshot) => {
+            const apps = snapshot.val();
+            const uploaderAppsContainer = document.getElementById('uploaderApps');
+            uploaderAppsContainer.innerHTML = '';
+            
+            for (const key in apps) {
+                const uploaderApp = apps[key];
+                if (uploaderApp.status !== 'approved' || key === appId) continue;
                 
-                if (!reviews) {
-                    const noReviews = document.createElement('div');
-                    noReviews.style.textAlign = 'center';
-                    noReviews.style.padding = '20px';
-                    noReviews.style.color = '#999';
-                    noReviews.textContent = 'No review yet';
-                    reviewsList.appendChild(noReviews);
-                    return;
-                }
-                
-                for (const key in reviews) {
-                    const review = reviews[key];
-                    
-                    const reviewItem = document.createElement('div');
-                    reviewItem.className = 'review-item';
-                    reviewItem.innerHTML = `
-                        <div class="review-header">
-                            <span class="reviewer-name">${review.userName}</span>
-                            <span class="review-rating">${generateStars(review.rating)}</span>
+                const appCard = document.createElement('div');
+                appCard.className = 'app-card';
+                appCard.innerHTML = `
+                    <img src="${uploaderApp.icon}" alt="${uploaderApp.name}" class="app-icon">
+                    <div class="app-info">
+                        <h3 class="app-name">${uploaderApp.name}</h3>
+                        <p class="app-category">${uploaderApp.category}</p>
+                        <div class="app-stats">
+                            <span class="app-rating">${generateStars(uploaderApp.rating)}</span>
+                            <span>${uploaderApp.downloads} downloads</span>
                         </div>
-                        <p class="review-text">${review.text}</p>
-                    `;
-                    
-                    reviewsList.appendChild(reviewItem);
-                }
-            });
-        }
-
-        function loadAppDetailAds() {
-            database.ref('ads').once('value').then((snapshot) => {
-                const ads = snapshot.val();
+                    </div>
+                `;
                 
-                if (ads && ads.appDetailAd1) {
-                    document.getElementById('appDetailAd1').innerHTML = ads.appDetailAd1;
-                }
-                
-                if (ads && ads.appDetailAd2) {
-                    document.getElementById('appDetailAd2').innerHTML = ads.appDetailAd2;
-                }
-                
-                if (ads && ads.appDetailAd3) {
-                    document.getElementById('appDetailAd3').innerHTML = ads.appDetailAd3;
-                }
-            });
-        }
-
-        function loadShareCount(appId) {
-            database.ref('shareCount/' + appId).once('value').then((snapshot) => {
-                const count = snapshot.val() || 0;
-                document.getElementById('shareCount').textContent = count;
-            });
-        }
-
-        function editApp(appId) {
-            database.ref('apps/' + appId).once('value').then((snapshot) => {
-                const app = snapshot.val();
-                
-                // Fill form with app data
-                document.getElementById('appCategory').value = app.category;
-                document.getElementById('appType').value = app.type;
-                document.getElementById('appNameUpload').value = app.name;
-                document.getElementById('appIcon').value = app.icon;
-                document.getElementById('appDownloadLink').value = app.downloadLink;
-                document.getElementById('appVersion').value = app.version;
-                document.getElementById('appCompany').value = app.company;
-                document.getElementById('appScreenshots').value = app.screenshots ? app.screenshots.join(', ') : '';
-                document.getElementById('appDescription').value = app.description;
-                
-                // Change submit button to update
-                const submitBtn = document.getElementById('submitApp');
-                submitBtn.textContent = 'Update';
-                submitBtn.setAttribute('data-app-id', appId);
-                
-                // Remove old event listener and add new one
-                const newSubmitBtn = submitBtn.cloneNode(true);
-                submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
-                
-                newSubmitBtn.addEventListener('click', () => {
-                    const category = document.getElementById('appCategory').value;
-                    const type = document.getElementById('appType').value;
-                    const name = document.getElementById('appNameUpload').value;
-                    const icon = document.getElementById('appIcon').value;
-                    const downloadLink = document.getElementById('appDownloadLink').value;
-                    const version = document.getElementById('appVersion').value;
-                    const company = document.getElementById('appCompany').value;
-                    const screenshots = document.getElementById('appScreenshots').value;
-                    const description = document.getElementById('appDescription').value;
-                    
-                    if (!category || !name || !icon || !downloadLink || !version || !company || !description) {
-                        showNotification('Please provide all required information', 'error');
-                        return;
-                    }
-                    
-                    // Update app in database
-                    const appData = {
-                        category: category,
-                        type: type,
-                        name: name,
-                        icon: icon,
-                        downloadLink: downloadLink,
-                        version: version,
-                        company: company,
-                        screenshots: screenshots ? screenshots.split(',').map(s => s.trim()) : [],
-                        description: description
-                    };
-                    
-                    database.ref('apps/' + appId).update(appData);
-                    
-                    showNotification('App successfully updated', 'success');
-                    
-                    // Reset form
-                    document.getElementById('appCategory').value = '';
-                    document.getElementById('appType').value = 'free';
-                    document.getElementById('appNameUpload').value = '';
-                    document.getElementById('appIcon').value = '';
-                    document.getElementById('appDownloadLink').value = '';
-                    document.getElementById('appVersion').value = '';
-                    document.getElementById('appCompany').value = '';
-                    document.getElementById('appScreenshots').value = '';
-                    document.getElementById('appDescription').value = '';
-                    
-                    // Change submit button back to upload
-                    newSubmitBtn.textContent = 'Upload';
-                    newSubmitBtn.removeAttribute('data-app-id');
-                    
-                    // Reload user apps
-                    loadUserApps();
+                appCard.addEventListener('click', () => {
+                    showAppDetail(key);
                 });
                 
-                // Show upload page
-                showPage('upload');
-            });
-        }
-
-        function deleteApp(appId) {
-            if (confirm('Are you sure you want to delete this app?')) {
-                database.ref('apps/' + appId).remove()
-                    .then(() => {
-                        showNotification('App successfully deleted', 'success');
-                        loadUserApps();
-                    })
-                    .catch((error) => {
-                        showNotification('Failed to delete app: ' + error.message, 'error');
-                    });
-            }
-        }
-
-        function loadAds() {
-            database.ref('ads').once('value').then((snapshot) => {
-                const ads = snapshot.val();
-                
-                if (ads && ads.ad1) {
-                    document.getElementById('ad1').innerHTML = ads.ad1;
-                }
-                
-                // Load ads for other positions
-                for (let i = 1; i <= 10; i++) {
-                    const adElement = document.getElementById(`ad${i}`);
-                    if (adElement && ads && ads[`ad${i}`]) {
-                        adElement.innerHTML = ads[`ad${i}`];
-                    }
-                }
-            });
-        }
-
-        function generateStars(rating) {
-            const fullStars = Math.floor(rating);
-            const halfStar = rating % 1 >= 0.5 ? 1 : 0;
-            const emptyStars = 5 - fullStars - halfStar;
-            
-            let stars = '';
-            
-            for (let i = 0; i < fullStars; i++) {
-                stars += '<i class="fas fa-star"></i>';
+                uploaderAppsContainer.appendChild(appCard);
             }
             
-            if (halfStar) {
-                stars += '<i class="fas fa-star-half-alt"></i>';
+            if (uploaderAppsContainer.children.length === 0) {
+                const noApps = document.createElement('div');
+                noApps.style.textAlign = 'center';
+                noApps.style.padding = '20px';
+                noApps.style.color = '#999';
+                noApps.textContent = 'No other apps from uploader';
+                uploaderAppsContainer.appendChild(noApps);
+            }
+        });
+        
+        // Load share count
+        loadShareCount(appId);
+        
+        // Load ads for app detail page
+        loadAppDetailAds();
+        
+        // Show app detail page
+        homePage.classList.add('hidden');
+        appDetailPage.classList.remove('hidden');
+    });
+}
+
+function loadReviews(appId) {
+    database.ref('reviews/' + appId).once('value').then((snapshot) => {
+        const reviews = snapshot.val();
+        const reviewsList = document.getElementById('reviewsList');
+        reviewsList.innerHTML = '';
+        
+        if (!reviews) {
+            const noReviews = document.createElement('div');
+            noReviews.style.textAlign = 'center';
+            noReviews.style.padding = '20px';
+            noReviews.style.color = '#999';
+            noReviews.textContent = 'No review yet';
+            reviewsList.appendChild(noReviews);
+            return;
+        }
+        
+        for (const key in reviews) {
+            const review = reviews[key];
+            
+            const reviewItem = document.createElement('div');
+            reviewItem.className = 'review-item';
+            reviewItem.innerHTML = `
+                <div class="review-header">
+                    <span class="reviewer-name">${review.userName}</span>
+                    <span class="review-rating">${generateStars(review.rating)}</span>
+                </div>
+                <p class="review-text">${review.text}</p>
+            `;
+            
+            reviewsList.appendChild(reviewItem);
+        }
+    });
+}
+
+function loadAppDetailAds() {
+    database.ref('ads').once('value').then((snapshot) => {
+        const ads = snapshot.val();
+        
+        if (ads && ads.appDetailAd1) {
+            document.getElementById('appDetailAd1').innerHTML = ads.appDetailAd1;
+        }
+        
+        if (ads && ads.appDetailAd2) {
+            document.getElementById('appDetailAd2').innerHTML = ads.appDetailAd2;
+        }
+        
+        if (ads && ads.appDetailAd3) {
+            document.getElementById('appDetailAd3').innerHTML = ads.appDetailAd3;
+        }
+    });
+}
+
+function loadShareCount(appId) {
+    database.ref('shareCount/' + appId).once('value').then((snapshot) => {
+        const count = snapshot.val() || 0;
+        document.getElementById('shareCount').textContent = count;
+    });
+}
+
+function editApp(appId) {
+    database.ref('apps/' + appId).once('value').then((snapshot) => {
+        const app = snapshot.val();
+        
+        // Fill form with app data
+        document.getElementById('appCategory').value = app.category;
+        document.getElementById('appType').value = app.type;
+        document.getElementById('appNameUpload').value = app.name;
+        document.getElementById('appIcon').value = app.icon;
+        document.getElementById('appDownloadLink').value = app.downloadLink;
+        document.getElementById('appVersion').value = app.version;
+        document.getElementById('appCompany').value = app.company;
+        document.getElementById('appScreenshots').value = app.screenshots ? app.screenshots.join(', ') : '';
+        document.getElementById('appDescription').value = app.description;
+        
+        // Change submit button to update
+        const submitBtn = document.getElementById('submitApp');
+        submitBtn.textContent = 'Update';
+        submitBtn.setAttribute('data-app-id', appId);
+        
+        // Remove old event listener and add new one
+        const newSubmitBtn = submitBtn.cloneNode(true);
+        submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
+        
+        newSubmitBtn.addEventListener('click', () => {
+            const category = document.getElementById('appCategory').value;
+            const type = document.getElementById('appType').value;
+            const name = document.getElementById('appNameUpload').value;
+            const icon = document.getElementById('appIcon').value;
+            const downloadLink = document.getElementById('appDownloadLink').value;
+            const version = document.getElementById('appVersion').value;
+            const company = document.getElementById('appCompany').value;
+            const screenshots = document.getElementById('appScreenshots').value;
+            const description = document.getElementById('appDescription').value;
+            
+            if (!category || !name || !icon || !downloadLink || !version || !company || !description) {
+                showNotification('Please provide all required information', 'error');
+                return;
             }
             
-            for (let i = 0; i < emptyStars; i++) {
-                stars += '<i class="far fa-star"></i>';
+            // Update app in database
+            const appData = {
+                category: category,
+                type: type,
+                name: name,
+                icon: icon,
+                downloadLink: downloadLink,
+                version: version,
+                company: company,
+                screenshots: screenshots ? screenshots.split(',').map(s => s.trim()) : [],
+                description: description
+            };
+            
+            database.ref('apps/' + appId).update(appData);
+            
+            showNotification('App successfully updated', 'success');
+            
+            // Reset form
+            document.getElementById('appCategory').value = '';
+            document.getElementById('appType').value = 'free';
+            document.getElementById('appNameUpload').value = '';
+            document.getElementById('appIcon').value = '';
+            document.getElementById('appDownloadLink').value = '';
+            document.getElementById('appVersion').value = '';
+            document.getElementById('appCompany').value = '';
+            document.getElementById('appScreenshots').value = '';
+            document.getElementById('appDescription').value = '';
+            
+            // Change submit button back to upload
+            newSubmitBtn.textContent = 'Upload';
+            newSubmitBtn.removeAttribute('data-app-id');
+            
+            // Reload user apps
+            loadUserApps();
+        });
+        
+        // Show upload page
+        showPage('upload');
+    });
+}
+
+function deleteApp(appId) {
+    if (confirm('Are you sure you want to delete this app?')) {
+        database.ref('apps/' + appId).remove()
+            .then(() => {
+                showNotification('App successfully deleted', 'success');
+                loadUserApps();
+            })
+            .catch((error) => {
+                showNotification('Failed to delete app: ' + error.message, 'error');
+            });
+    }
+}
+
+function loadAds() {
+    database.ref('ads').once('value').then((snapshot) => {
+        const ads = snapshot.val();
+        
+        if (ads && ads.ad1) {
+            document.getElementById('ad1').innerHTML = ads.ad1;
+        }
+        
+        // Load ads for other positions
+        for (let i = 1; i <= 10; i++) {
+            const adElement = document.getElementById(`ad${i}`);
+            if (adElement && ads && ads[`ad${i}`]) {
+                adElement.innerHTML = ads[`ad${i}`];
             }
-            
-            return stars;
+        }
+    });
+}
+
+function generateStars(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5 ? 1 : 0;
+    const emptyStars = 5 - fullStars - halfStar;
+    
+    let stars = '';
+    
+    for (let i = 0; i < fullStars; i++) {
+        stars += '<i class="fas fa-star"></i>';
+    }
+    
+    if (halfStar) {
+        stars += '<i class="fas fa-star-half-alt"></i>';
+    }
+    
+    for (let i = 0; i < emptyStars; i++) {
+        stars += '<i class="far fa-star"></i>';
+    }
+    
+    return stars;
+}
+
+function showNotification(message, type) {
+    notification.textContent = message;
+    notification.className = `notification ${type}`;
+    notification.classList.add('show');
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+    }, 3000);
+}
+
+function updateUIForLoggedInUser(user) {
+    loginBtn.classList.add('hidden');
+    logoutBtn.classList.remove('hidden');
+    
+    // Load user data
+    database.ref('users/' + user.uid).once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        document.getElementById('profileName').textContent = userData.name || 'User';
+        document.getElementById('profileUID').textContent = `UID: ${user.uid}`;
+        
+        if (userData.avatar) {
+            document.getElementById('profileAvatar').src = userData.avatar;
+        }
+    });
+}
+
+function updateUIForLoggedOutUser() {
+    loginBtn.classList.remove('hidden');
+    logoutBtn.classList.add('hidden');
+    
+    // Redirect to home page
+    showPage('home');
+}
+
+// Load all apps for search
+function loadAllAppsForSearch() {
+    database.ref('apps').once('value').then((snapshot) => {
+        const apps = snapshot.val();
+        allAppsData = [];
+        
+        for (const key in apps) {
+            if (apps[key].status === 'approved') {
+                allAppsData.push({ id: key, ...apps[key] });
+            }
+        }
+    });
+}
+
+// Category filter functions
+function initializeCategoryButtons() {
+    document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const category = btn.getAttribute('data-category');
+
+            // Remove 'active' class from all buttons and add to clicked button
+            document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Load apps by category
+            loadAppsByCategory(category);
+
+            // Scroll user to app list
+            document.getElementById('allApps').scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+}
+
+function loadAppsByCategory(category) {
+    const allAppsContainer = document.getElementById('allApps');
+    // Clear previous apps and show loading message
+    allAppsContainer.innerHTML = '<p style="text-align: center; padding: 20px;">Loading apps...</p>';
+
+    let query;
+    if (category === 'all') {
+        // Query for all apps if 'all'
+        query = database.ref('apps').orderByChild('uploadDate');
+    } else {
+        // Query for specific category
+        query = database.ref('apps').orderByChild('category').equalTo(category);
+    }
+
+    query.once('value').then((snapshot) => {
+        const apps = snapshot.val();
+        allAppsContainer.innerHTML = ''; // Clear loading message
+
+        if (!apps) {
+            allAppsContainer.innerHTML = '<p style="text-align: center; padding: 20px;">No apps found in this category.</p>';
+            return;
         }
 
-        function showNotification(message, type) {
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.classList.add('show');
-            
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 3000);
-        }
-
-        function updateUIForLoggedInUser(user) {
-            loginBtn.classList.add('hidden');
-            logoutBtn.classList.remove('hidden');
-            
-            // Load user data
-            database.ref('users/' + user.uid).once('value').then((snapshot) => {
-                const userData = snapshot.val();
-                document.getElementById('profileName').textContent = userData.name || 'User';
-                document.getElementById('profileUID').textContent = `UID: ${user.uid}`;
+        let hasApprovedApps = false;
+        // Loop through apps
+        for (const key in apps) {
+            const app = apps[key];
+            // Only show apps with 'approved' status
+            if (app.status === 'approved') {
+                hasApprovedApps = true;
+                const appItem = document.createElement('div');
+                appItem.className = 'app-item';
+                appItem.innerHTML = `
+                    <img src="${app.icon}" alt="${app.name}" class="app-item-icon">
+                    <div class="app-item-info">
+                        <h3 class="app-item-name">${app.name}</h3>
+                        <p class="app-item-details">${app.company} • ${app.category} • ${app.version}</p>
+                        <p class="app-item-details">${app.downloads} downloads • ${generateStars(app.rating)} • ${app.reviews} reviews</p>
+                        <p class="app-item-details">Uploaded: ${new Date(app.uploadDate).toLocaleDateString()}</p>
+                    </div>
+                    <button class="btn btn-primary get-btn" data-app-id="${key}">Get</button>
+                `;
                 
-                if (userData.avatar) {
-                    document.getElementById('profileAvatar').src = userData.avatar;
-                }
-            });
-        }
-
-        function updateUIForLoggedOutUser() {
-            loginBtn.classList.remove('hidden');
-            logoutBtn.classList.add('hidden');
-            
-            // Redirect to home page
-            showPage('home');
-        }
-
-        // Load all apps for search
-        function loadAllAppsForSearch() {
-            database.ref('apps').once('value').then((snapshot) => {
-                const apps = snapshot.val();
-                allAppsData = [];
-                
-                for (const key in apps) {
-                    if (apps[key].status === 'approved') {
-                        allAppsData.push({ id: key, ...apps[key] });
-                    }
-                }
-            });
-        }
-
-        // Category buttons
-        document.querySelectorAll('.category-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const category = btn.getAttribute('data-category');
-                
-                // Load apps by category
-                database.ref('apps').orderByChild('category').equalTo(category).once('value').then((snapshot) => {
-                    const apps = snapshot.val();
-                    const allAppsContainer = document.getElementById('allApps');
-                    allAppsContainer.innerHTML = '';
-                    
-                    for (const key in apps) {
-                        const app = apps[key];
-                        if (app.status !== 'approved') continue;
-                        
-                        const appItem = document.createElement('div');
-                        appItem.className = 'app-item';
-                        appItem.innerHTML = `
-                            <img src="${app.icon}" alt="${app.name}" class="app-item-icon">
-                            <div class="app-item-info">
-                                <h3 class="app-item-name">${app.name}</h3>
-                                <p class="app-item-details">${app.company} • ${app.category} • ${app.version}</p>
-                                <p class="app-item-details">${app.downloads} downloads • ${generateStars(app.rating)} • ${app.reviews} reviews</p>
-                                <p class="app-item-details">Uploaded: ${new Date(app.uploadDate).toLocaleDateString()}</p>
-                            </div>
-                            <button class="btn btn-primary get-btn" data-app-id="${key}">Get</button>
-                        `;
-                        
-                        // Add event listener to entire app item
-                        appItem.addEventListener('click', (e) => {
-                            // If not clicking on the Get button, still navigate to app detail
-                            if (!e.target.classList.contains('get-btn')) {
-                                showAppDetail(key);
-                            }
-                        });
-                        
-                        // Add event listener to Get button
-                        appItem.querySelector('.get-btn').addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            showAppDetail(key);
-                        });
-                        
-                        allAppsContainer.appendChild(appItem);
+                // Event for clicking on app item to go to detail page
+                appItem.addEventListener('click', (e) => {
+                    // If not clicking on 'Get' button
+                    if (!e.target.classList.contains('get-btn')) {
+                        showAppDetail(key);
                     }
                 });
-            });
-        });
 
-        // Check authentication state
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                updateUIForLoggedInUser(user);
-            } else {
-                updateUIForLoggedOutUser();
+                // Event for clicking on 'Get' button to go to detail page
+                appItem.querySelector('.get-btn').addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent parent div's click event
+                    showAppDetail(key);
+                });
+
+                allAppsContainer.appendChild(appItem);
             }
-        });
+        }
 
-        // Initialize
-        loadHomeData();
-        loadAllAppsForSearch();
+        // If no approved apps found
+        if (!hasApprovedApps) {
+            allAppsContainer.innerHTML = '<p style="text-align: center; padding: 20px;">No approved apps found in this category.</p>';
+        }
+    }).catch((error) => {
+        console.error("Error fetching apps by category:", error);
+        allAppsContainer.innerHTML = '<p style="text-align: center; padding: 20px; color: red;">Error loading apps.</p>';
+    });
+}
+
+// Call function when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    // Call once to load "All Apps" initially
+    loadAppsByCategory('all');
+    // Then initialize buttons
+    initializeCategoryButtons();
+});
+
+// Check authentication state
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        updateUIForLoggedInUser(user);
+    } else {
+        updateUIForLoggedOutUser();
+    }
+});
+
+// Initialize
+loadHomeData();
+loadAllAppsForSearch();
+
     </script>
-
-   <script type='text/javascript' src='//pl28016682.effectivegatecpm.com/1b/42/6e/1b426e221fc3069c38c0f2db2383158e.js'></script>
 </body>
 </html>
